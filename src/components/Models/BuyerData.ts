@@ -1,11 +1,6 @@
-import { IBuyer, TPayment } from "../../../types";
+import { IBuyer } from "../../types";
 
-export type FormErrors = {
-  payment?: string;
-  email?: string;
-  phone?: string;
-  address?: string
-}
+export type TFormErrors = Partial<Record<keyof IBuyer, string>>;
 
 export class BuyerData {
   private _buyer: IBuyer = {
@@ -15,14 +10,7 @@ export class BuyerData {
     address: ''
   };
 
-  private _errors: FormErrors = {};
-
-  setBuyer(data: {
-    payment?: TPayment;
-    email?: string;
-    phone?: string;
-    address?: string
-  }): void {
+  setBuyer(data: Partial<IBuyer>): void {
     this._buyer = {...this._buyer, ...data};
   }
 
@@ -39,12 +27,8 @@ export class BuyerData {
     };
   }
 
-  get formErrors(): FormErrors {
-    return this._errors;
-  }
-
-  validate(): FormErrors {
-    const errors: FormErrors = {};
+  validate(): TFormErrors {
+    const errors: TFormErrors = {};
 
     if (this._buyer.payment === null) {
       errors.payment = 'Необходимо выбрать способ оплаты';
@@ -58,7 +42,6 @@ export class BuyerData {
     if(!this._buyer.address.trim()) {
       errors.address = 'Необходимо указать адрес доставки';
     }
-    this._errors = errors;
     return errors;
   }
 }

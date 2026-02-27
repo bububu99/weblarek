@@ -1,4 +1,4 @@
-import { IProduct } from "../../../types"
+import { IProduct } from "../../types";
 
 export class CartData {
   private _items: IProduct[] = [];
@@ -33,6 +33,6 @@ export class CartData {
   inCart(id: string): boolean {
     return this._items.some(item =>
       item.id === id
-    ); //нужна ли проверка на дубликат?
+    ); 
   }
 }

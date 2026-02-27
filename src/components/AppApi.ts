@@ -1,4 +1,4 @@
-import { IApi, IProduct, IOrder, IOrderResult } from "../../types";
+import { IApi,IProduct, IOrder, IOrderResult } from "../types";
 
 export class AppApi {
   private _api: IApi;
@@ -13,7 +13,6 @@ export class AppApi {
   }
 
   async postOrder(order: IOrder): Promise<IOrderResult> {
-    return this._api.post<IOrderResult>('/order', order)
-      .then((res:IOrderResult) => res);
+    return this._api.post<IOrderResult>('/order', order);
   }
 }

@@ -1,10 +1,10 @@
 import './scss/styles.scss';
-import { ProductData } from './components/base/Models/ProductData';
-import { CartData } from './components/base/Models/CartData';
-import { BuyerData } from './components/base/Models/BuyerData';
+import { ProductData } from './components/Models/ProductData';
+import { CartData } from './components/Models/CartData';
+import { BuyerData } from './components/Models/BuyerData';
 import { apiProducts } from './utils/data';
 import { Api } from './components/base/Api';
-import { AppApi } from './components/base/AppApi';
+import { AppApi } from './components/AppApi';
 import { API_URL } from './utils/constants';
 
 // Для класса ProductData
@@ -17,7 +17,7 @@ console.log('Массив товаров из каталога:', productsModel.
 // Проверяем правильно ли отобрается первый объект массива по его id
 const firstId = apiProducts.items[0].id;
 const foundProduct = productsModel.getItemById(firstId);
-console.log('Результат поиска по ID:', foundProduct);
+console.log('Результат поиска первого объекта по его ID:', foundProduct);
 
 // Проверяем set и get для подробного отображения первого объекта в массиве
 if (foundProduct) {
@@ -40,15 +40,15 @@ console.log('Первый товар в корзине?', cartModel.inCart(produ
 
 // Проверяем удаление товара из корзины
 cartModel.remove(product1);
-console.log('Первый товар в корзине?', cartModel.inCart(product1.id));
+console.log('Остался ли первый товар в корзине после удаления?', cartModel.inCart(product1.id));
 
 // Очистка корзины
 cartModel.clear();
-console.log('Количество товаров в корзине', cartModel.count);
+console.log('Количество товаров в корзине после очистки', cartModel.count);
 
 // Для класса BuyerData
 const buyerModel = new BuyerData ();
-console.log('Начальные данные', buyerModel.buyer);
+console.log('Начальные данные покупателя', buyerModel.buyer);
 
 // Проверяем сохранение данных покупателя и полноту их заполнения
 buyerModel.setBuyer({
@@ -57,7 +57,6 @@ buyerModel.setBuyer({
 });
 console.log('Новые данные покупателя:', buyerModel.buyer);
 console.log('Проверка валидации', buyerModel.validate());
-console.log(buyerModel.formErrors);
 
 //Проверяем корректно ли проходит дозаполнение данных
 buyerModel.setBuyer({
@@ -67,11 +66,11 @@ buyerModel.setBuyer({
   payment: 'card'
 });
 console.log('Обновленные данные покупателя:', buyerModel.buyer);
-console.log('Проверка валидации', buyerModel.validate());
+console.log('Проверка валидации при полностью заполненной форме', buyerModel.validate());
 
 // Проверяем очистку данных покупателя
 buyerModel.clear();
-console.log(buyerModel.buyer)
+console.log('Данные покупателя после очистки', buyerModel.buyer)
 
 // Проверяем запрос на сервер для получения данных
 const baseApi = new Api(API_URL);
