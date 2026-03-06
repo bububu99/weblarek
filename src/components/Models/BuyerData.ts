@@ -1,4 +1,5 @@
 import { IBuyer } from "../../types";
+import { IEvents } from "../base/Events";
 
 export type TFormErrors = Partial<Record<keyof IBuyer, string>>;
 
@@ -10,8 +11,11 @@ export class BuyerData {
     address: ''
   };
 
+  constructor(protected events: IEvents) {}
+
   setBuyer(data: Partial<IBuyer>): void {
     this._buyer = {...this._buyer, ...data};
+    this.events.emit('order:input', data);
   }
 
   get buyer(): IBuyer {
@@ -42,6 +46,8 @@ export class BuyerData {
     if(!this._buyer.address.trim()) {
       errors.address = 'Необходимо указать адрес доставки';
     }
+    this.events.emit('formErrors:change', errors);
+    
     return errors;
   }
 }
