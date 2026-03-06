@@ -215,8 +215,6 @@ events.on('success:close', () => {
 appApi.getProducts()
   .then((products) => {
     productsModel.products = products;
-    console.log('Данные полученные с сервера:', productsModel.products);
-    console.log('Количество товаров:', productsModel.products.length);
   })
  .catch((err) => {
     console.error('Ошибка запроса:', err); 
