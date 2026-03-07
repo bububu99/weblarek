@@ -7,11 +7,7 @@ export class CartData {
   constructor(protected events: IEvents) {}
 
   protected changed() {
-    this.events.emit('cart:changed', {
-      items: this._items,
-      total: this.total,
-      count: this.count
-    });
+    this.events.emit('cart:changed');
   }
 
   get items(): IProduct[] {

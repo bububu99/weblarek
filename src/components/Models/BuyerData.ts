@@ -15,7 +15,7 @@ export class BuyerData {
 
   setBuyer(data: Partial<IBuyer>): void {
     this._buyer = {...this._buyer, ...data};
-    this.events.emit('order:input', data);
+    this.events.emit('buyer:changed');
   }
 
   get buyer(): IBuyer {
@@ -29,6 +29,7 @@ export class BuyerData {
       phone: '',
       address: ''
     };
+    this.events.emit('buyer:changed');
   }
 
   validate(): TFormErrors {
@@ -46,7 +47,6 @@ export class BuyerData {
     if(!this._buyer.address.trim()) {
       errors.address = 'Необходимо указать адрес доставки';
     }
-    this.events.emit('formErrors:change', errors);
     
     return errors;
   }

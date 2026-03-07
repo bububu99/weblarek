@@ -48,8 +48,4 @@ export class Form<T> extends Component<IForm & T> {
     this.errorsElement.textContent = value;
   }
 
- 
-  clear() {
-    this.form.reset();
-  }
 }

@@ -19,8 +19,7 @@ export class OrderForm extends Form<IOrderForm> {
 
     
     this.paymentButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        this.payment = button.name; 
+      button.addEventListener('click', () => { 
         this.onInputChange('payment', button.name);
       });
     });
